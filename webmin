@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+echo "deb http://download.webmin.com/download/repository sarge contrib" | \
+  sudo tee /etc/apt/sources.list.d/webmin.list
+wget http://www.webmin.com/jcameron-key.asc -O - | sudo apt-key add -
+sudo apt update -y
+sudo apt install -y webmin
+sudo sed -e 's/^port=.*/port=10002/g' \
+-e 's/^listen=.*/listen=10002/g' -i /etc/webmin/miniserv.conf
+sudo systemctl restart webmin
