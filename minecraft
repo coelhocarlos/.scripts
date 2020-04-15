@@ -1,0 +1,89 @@
+################################################################################
+#                                MINECRAFT                                     #
+################################################################################
+
+sudo apt update
+sudo apt install wget screen default-jdk nmap
+
+sudo useradd -m -r -d /mnt/media/games-server/minecraft minecraft
+cd /media/mnt/media/games-server/
+sudo mkdir minecraft
+sudo cd minecraft 
+sudo mkdir survival
+sudo wget -O /mnt/media/games-server/minecraft/survival/minecraft_server.jar https://launcher.mojang.com/v1/objects/a7023b92091ca5872d35b17c8aab1c6daa833a69/server.jar
+sudo bash -c "echo eula=true > /media/mnt/media/games-server/minecraft/survival/eula.txt"
+sudo chown -R minecraft /mnt/media/games-server/minecraft/survival/
+echo "[Unit]" >> /etc/systemd/system/minecraft@.service
+echo "Description=Minecraft Server: %i" >> /etc/systemd/system/minecraft@.service
+echo "After=network.target" >> /etc/systemd/system/minecraft@.service
+
+echo "[Service]" >> /etc/systemd/system/minecraft@.service
+echo "WorkingDirectory= /mnt/media/games-server/minecraft/%i" >> /etc/systemd/system/minecraft@.service
+
+echo "User=minecraft" >> /etc/systemd/system/minecraft@.service
+echo "Group=minecraft" >> /etc/systemd/system/minecraft@.service
+echo "Restart=always" >> /etc/systemd/system/minecraft@.service
+
+#FROM:
+#ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx2G -jar minecraft_server.jar nogui
+#TO:
+#ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx4G -jar minecraft_server.jar nogui
+
+echo "ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx2G -jar minecraft_server.jar nogui" >> /etc/systemd/system/minecraft@.service
+
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN IN 5 SECONDS. SAVING ALL MAPS..."\015'" >> /etc/systemd/system/minecraft@.service
+echo "ExecStop=/bin/sleep 5"
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\015'" >> /etc/systemd/system/minecraft@.service
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\015'" >> /etc/systemd/system/minecraft@.service
+
+echo "[Install]"
+echo "WantedBy=multi-user.target"
+
+
+#sudo systemctl status minecraft@survival
+#sudo systemctl start minecraft@survival
+#sudo systemctl status minecraft@survival
+
+
+echo "max-tick-time=60000" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "generator-settings=" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "allow-nether=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "force-gamemode=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "gamemode=0" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "enable-query=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "player-idle-timeout=0" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "difficulty=1" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "spawn-monsters=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "op-permission-level=4" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "pvp=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "snooper-enabled=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "level-type=DEFAULT" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "hardcore=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "enable-command-block=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "max-players=200" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "network-compression-threshold=256" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "resource-pack-sha1=" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "max-world-size=29999984" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "server-port=25565" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "server-ip=" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "spawn-npcs=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "allow-flight=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "level-name=world" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "view-distance=10" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "resource-pack=" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "spawn-animals=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "white-list=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "generate-structures=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "online-mode=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "max-build-height=256" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "level-seed=" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "prevent-proxy-connections=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "use-native-transport=true" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "motd=A Minecraft ZOmbie The Zer0 Server" >> /mnt/media/games-server/minecraft/survival/server.properties
+echo "enable-rcon=false" >> /mnt/media/games-server/minecraft/survival/server.properties
+
+
+sudo systemctl stop minecraft@survival
+sudo systemctl enable minecraft@survival
+sudo systemctl start minecraft@survival
+sudo systemctl status minecraft@survival
