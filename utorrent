@@ -6,3 +6,5 @@ sudo apt install ./libssl1.0.0_1.0.2n-1ubuntu5.3_amd64.deb
 sudo ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
 utserver -settingspath /opt/utorrent-server-alpha-v3_3/ -daemon
 echo e  hostname":8080/gui"
+sudo ufw allow 8080/tcp
+sudo ufw allow 6881/tcp
