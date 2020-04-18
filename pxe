@@ -3,7 +3,7 @@
 ################################################################################
 
 sudo apt install -y tftpd-hpa wget
-    sudo echo 'TFTP_DIRECTORY= "/mnt/media/ftp/pxe"' >> /etc/default/tftpd-hpa
+    sudo echo 'TFTP_DIRECTORY= "/mnt/backup/ftp/pxe/"' >> /etc/default/tftpd-hpa
     sudo echo 'RUN_DAEMON="no"' >> /etc/default/tftpd-hpa
     sudo echo 'OPTIONS="-l -s /mnt/media/ftp/pxe"' >> /etc/default/tftpd-hpa
     sudo /etc/init.d/tftpd-hpa restart
