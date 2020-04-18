@@ -10,26 +10,39 @@ sudo ufw allow 8080/tcp
 sudo ufw allow 6881/tcp
 sudo pkill utserver
 utserver -settingspath /opt/utorrent-server-alpha-v3_3/ &
-
+touch /etc/systemd/system/utserver.service
 #Configre as service
-sudo nano /etc/systemd/system/utserver.service
-[Unit]
-Description=uTorrent Server
-After=network.target
+#sudo nano /etc/systemd/system/utserver.service
+echo "[Unit]"
+echo "Description=uTorrent Server"
+echo "After=network.target"
 
-[Service]
-Type=simple
-User=utorrent
-Group=utorrent
-ExecStart=/usr/bin/utserver -settingspath /opt/utorrent-server-alpha-v3_3/
-ExecStop=/usr/bin/pkill utserver
-Restart=always
-SyslogIdentifier=uTorrent Server
+echo "[Service]"
+echo "Type=simple"
+echo "User=utorrent"
+echo "Group=utorrent"
+echo "ExecStart=/usr/bin/utserver -settingspath /opt/utorrent-server-alpha-v3_3/"
+echo "ExecStop=/usr/bin/pkill utserver"
+echo "Restart=always"
+echo "SyslogIdentifier=uTorrent Server"
 
-[Install]
-WantedBy=multi-user.target
+echo "[Install]"
+echo "WantedBy=multi-user.target"
 ############################################################
 sudo systemctl daemon-reload
+
 sudo adduser --system utorrent
 sudo addgroup --system utorrent
+sudo adduser utorrent utorrent
+
+sudo pkill utserver
+#Use the systemd service to start uTorrent server.
+
+sudo systemctl start utserver
+#Enable auto start at boot time.
+
+sudo systemctl enable utserver
+#Now check utserver status.
+
+systemctl status utserver
 
