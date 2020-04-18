@@ -13,21 +13,21 @@ utserver -settingspath /opt/utorrent-server-alpha-v3_3/ &
 touch /etc/systemd/system/utserver.service
 #Configre as service
 #sudo nano /etc/systemd/system/utserver.service
-echo "[Unit]"
-echo "Description=uTorrent Server"
-echo "After=network.target"
+echo "[Unit]" >> /etc/systemd/system/utserver.service
+echo "Description=uTorrent Server" >> /etc/systemd/system/utserver.service
+echo "After=network.target" >> /etc/systemd/system/utserver.service
 
-echo "[Service]"
-echo "Type=simple"
-echo "User=utorrent"
-echo "Group=utorrent"
-echo "ExecStart=/usr/bin/utserver -settingspath /opt/utorrent-server-alpha-v3_3/"
-echo "ExecStop=/usr/bin/pkill utserver"
-echo "Restart=always"
-echo "SyslogIdentifier=uTorrent Server"
+echo "[Service]" >> /etc/systemd/system/utserver.service
+echo "Type=simple" >> /etc/systemd/system/utserver.service
+echo "User=utorrent" >> /etc/systemd/system/utserver.service
+echo "Group=utorrent" >> /etc/systemd/system/utserver.service
+echo "ExecStart=/usr/bin/utserver -settingspath /opt/utorrent-server-alpha-v3_3/" >> /etc/systemd/system/utserver.service
+echo "ExecStop=/usr/bin/pkill utserver" >> /etc/systemd/system/utserver.service
+echo "Restart=always" >> /etc/systemd/system/utserver.service
+echo "SyslogIdentifier=uTorrent Server" >> /etc/systemd/system/utserver.service
 
-echo "[Install]"
-echo "WantedBy=multi-user.target"
+echo "[Install]" >> /etc/systemd/system/utserver.service
+echo "WantedBy=multi-user.target" >> /etc/systemd/system/utserver.service
 ############################################################
 sudo systemctl daemon-reload
 
