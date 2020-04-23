@@ -55,7 +55,7 @@ LOG="/var/log/$(echo $0 | cut -d'/' -f2)"
 # opões do comando GRANT: grant (permissão), all (todos privilegios), on (em ou na | banco ou tabela), *.* (todos os bancos/tabelas)
 # to (para), user@'%' (usuário @ localhost), identified by (indentificado por - senha do usuário), password (senha)
 # opção do comando FLUSH: flush (atualizar), privileges (recarregar as permissões)
-USER="ccstudio"
+USER="root"
 PASSWORD="1q2w3eASD!@"
 DATABASE="CREATE DATABASE owncloud;"
 USERDATABASE="CREATE USER 'owncloud' IDENTIFIED BY 'owncloud';"
