@@ -1,4 +1,5 @@
 #!/bin/bash
+# sudo tail -f /var/log/owncloud.sh
 # Autor: Robson Vaamonde
 # Site: www.procedimentosemti.com.br
 # Facebook: facebook.com/ProcedimentosEmTI
@@ -60,7 +61,7 @@ GRANTALL="GRANT ALL PRIVILEGES ON owncloud.* TO 'owncloud' IDENTIFIED BY 'ownclo
 FLUSH="FLUSH PRIVILEGES;"
 #
 # Variáveis de instalação do ownCloud
-RELEASE="https://download.owncloud.org/community/owncloud-10.1.0.tar.bz2"
+RELEASE="https://download.owncloud.org/community/owncloud-10.4.1.tar.bz2"
 #
 # Verificando se o usuário e Root, Distribuição e >=18.04 e o Kernel >=4.15 <IF MELHORADO)
 # [ ] = teste de expressão, && = operador lógico AND, == comparação de string, exit 1 = A maioria dos erros comuns na execução
@@ -98,7 +99,7 @@ echo -n "Verificando as dependências, aguarde... "
 echo -e "Início do script $0 em: `date +%d/%m/%Y-"("%H:%M")"`\n" &>> $LOG
 #
 echo -e "Instalação do ownCloud no GNU/Linux Ubuntu Server 18.04.x\n"
-echo -e "Após a instalação do ownCloud acessar a URL: http://`hostname -I`/own/\n"
+echo -e "Após a instalação do ownCloud acessar a URL: http://`hostname -I`/owncloud/\n"
 echo -e "Aguarde, esse processo demora um pouco dependendo do seu Link de Internet...\n"
 sleep 5
 #
@@ -175,9 +176,9 @@ echo -e "Instalando o ownCloud e criando a Base de Dados, aguarde..."
 	wget $RELEASE &>> $LOG
 	OWNCLOUDFILE=`echo owncloud*.*.*`
 	tar -jxvf $OWNCLOUDFILE &>> $LOG
-	mv -v owncloud/ /var/www/html/owncloud/ &>> $LOG
-	chown -Rv www-data:www-data /var/www/html/owncloud/ &>> $LOG
-	chmod -Rv 755 /var/www/html/owncloud/ &>> $LOG
+	mv -v owncloud/ /mnt/cloud/www/html/owncloud/ &>> $LOG
+	chown -Rv www-data:www-data /mnt/cloud/www/html/owncloud/ &>> $LOG
+	chmod -Rv 755 /mnt/cloud/www/html/owncloud/ &>> $LOG
 	mysql -u $USER -p$PASSWORD -e "$DATABASE" mysql &>> $LOG
 	mysql -u $USER -p$PASSWORD -e "$USERDATABASE" mysql &>> $LOG
 	mysql -u $USER -p$PASSWORD -e "$GRANTDATABASE" mysql &>> $LOG
