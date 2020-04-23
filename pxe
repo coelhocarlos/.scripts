@@ -3,9 +3,9 @@
 ################################################################################
 
 sudo apt install -y tftpd-hpa wget
-    sudo echo 'TFTP_DIRECTORY= "/mnt/backup/ftp/pxe/"' >> /etc/default/tftpd-hpa
+    sudo echo 'TFTP_DIRECTORY= "/mnt/drive/ftp/pxe"' >> /etc/default/tftpd-hpa
     sudo echo 'RUN_DAEMON="no"' >> /etc/default/tftpd-hpa
-    sudo echo 'OPTIONS="-l -s /mnt/media/ftp/pxe"' >> /etc/default/tftpd-hpa
+    sudo echo 'OPTIONS="-l -s /mnt/drive/ftp/pxe"' >> /etc/default/tftpd-hpa
     sudo /etc/init.d/tftpd-hpa restart
     sudo apt install -y isc-dhcp-server wget
     sudo echo "option domain-name "cc-studio-drive";" >> /etc/dhcp/dhcpd.conf
@@ -25,7 +25,7 @@ sudo apt install -y tftpd-hpa wget
     #/etc/default/isc-dhcp-server
     
     sudo echo 'INTERFACESv4="enp2s0"' >> /etc/default/isc-dhcp-server
-    sudo echo 'INTERFACESv6="ens2s0"' >> /etc/default/isc-dhcp-server
+    #sudo echo 'INTERFACESv6="ens2s0"' >> /etc/default/isc-dhcp-server
     sudo service isc-dhcp-server restart
     sudo /etc/init.d/tftpd-hpa restart
 
