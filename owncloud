@@ -179,8 +179,8 @@ echo -e "Instalando o ownCloud e criando a Base de Dados, aguarde..."
 	wget $RELEASE &>> $LOG
 	OWNCLOUDFILE=`echo owncloud*.*.*`
 	tar -jxvf $OWNCLOUDFILE &>> $LOG
-	mv -v owncloud/ /mnt/cloud/ccstudio-cloud/ &>> $LOG
-	chown -Rv www-data:www-data /mnt/cloud/ccstudio-cloud/ &>> $LOG
+	mv -v owncloud/ /mnt/cloud/www/ccstudio-cloud/ &>> $LOG
+	chown -Rv www-data:www-data /mnt/cloud/www/ccstudio-cloud/ &>> $LOG
 	chmod -Rv 755 /mnt/cloud/ccstudio-cloud/ &>> $LOG
 	mysql -u $USER -p$PASSWORD -e "$DATABASE" mysql &>> $LOG
 	mysql -u $USER -p$PASSWORD -e "$USERDATABASE" mysql &>> $LOG
