@@ -10,6 +10,7 @@ sudo ufw allow 8080/tcp
 sudo ufw allow 6881/tcp
 sudo pkill utserver
 utserver -settingspath /opt/utorrent-server-alpha-v3_3/ &
+###./utserver -settingspath /opt/utorrent-server-alpha-v3_3 -configfile /opt/utorrent/utserver.conf
 touch /etc/systemd/system/utserver.service
 #Configre as service
 #sudo nano /etc/systemd/system/utserver.service
